@@ -1,0 +1,10 @@
+streamlit
+geopandas
+plotly
+pandas
+numpy
+seaborn
+scikit-learn
+matplotlib
+yellowbrick
+scipy
