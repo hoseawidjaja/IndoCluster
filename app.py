@@ -383,38 +383,3 @@ if len(selected_features) >= 2:
 
 else:
     st.warning("Pilih minimal 2 fitur untuk melakukan clustering.")
-
-
-
-# Geopandas
-
-# df_agg['kmeans_cluster'] = kmeans_labels + 1
-
-# # Standarkan format huruf kecil dan hapus spasi
-# gdf["state"] = gdf["state"].str.lower().str.strip()
-# df_agg["Provinsi"] = df_agg["Provinsi"].str.lower().str.strip()
-
-# # Merge berdasarkan nama provinsi
-# gdf_merged = gdf.merge(df_agg, how="left", left_on="state", right_on="Provinsi")
-# gdf_merged = gdf_merged.dropna()
-
-
-# # --- OUTPUT: TABEL & MAP ---
-# st.subheader("Tabel Provinsi dan Cluster")
-# st.dataframe(df_agg[["Provinsi", "kmeans_cluster"]])
-
-# st.subheader("Peta Hasil Clustering")
-# fig = px.choropleth(
-#     gdf_merged,
-#     geojson=gdf_merged.geometry,
-#     locations=gdf_merged.index,
-#     color="kmeans_cluster",
-#     hover_name="state",
-#     hover_data={"kmeans_cluster": True},
-#     projection="mercator",
-#     width=1100,
-#     height=700
-# )
-# fig.update_geos(fitbounds="locations", visible=False)
-# fig.update_layout(margin={"r":10,"t":30,"l":10,"b":10})
-# st.plotly_chart(fig, use_container_width=True)
