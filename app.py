@@ -207,7 +207,7 @@ if use_pengangguran:
 if use_pendapatan:
     selected_features += pendapatan_features
 
-st.write(f"Fitur yang dipilih: {selected_groups}")
+st.write(f"Fitur yang dipilih: {', '.join(selected_groups)}")
         
 
 
@@ -392,4 +392,4 @@ if len(selected_features) >= 2:
     st.plotly_chart(fig, use_container_width=True)
 
 else:
-    st.warning("Pilih minimal 2 fitur untuk melakukan clustering.")
+    st.warning("Pilih minimal 1 fitur untuk melakukan clustering.")
