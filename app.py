@@ -169,7 +169,7 @@ gdf_map["state"] = gdf_map["state"].str.lower().str.strip()
 
 st.set_page_config(layout="wide")
 st.title("Clustering Provinsi di Indonesia")
-st.markdown("Pilih fitur-fitur yang ingin digunakan untuk clustering:")
+st.markdown("Pengelompokan provinsi di Indonesia berdasarkan faktor sosial-ekonomi dan kriminalitas dilakukan untuk mengelompokkan wilayah dengan karakteristik serupa, seperti tingkat pendapatan, pendidikan, pengangguran, dan tingkat kejahatan, sehingga memudahkan pemerintah dalam merancang kebijakan yang tepat sasaran untuk meningkatkan kesejahteraan dan keamanan masyarakat di setiap provinsi.")
 
 pidana_features = ['avg_pidana', 'trend_pidana', 'std_pidana']
 pendidikan_features = ['avg_pendidikan', 'trend_pendidikan', 'std_pendidikan']
@@ -179,7 +179,7 @@ pendapatan_features = ['avg_pendapatan', 'trend_pendapatan', 'std_pendapatan']
 # all_features = pidana_features + pendidikan_features + pengangguran_features + pendapatan_features
 # selected_features = st.multiselect("Pilih fitur:", all_features, default=all_features[:4])
 
-st.sidebar.header("Pilih Grup Fitur")
+st.sidebar.header("Pilih Fitur")
 use_pidana = st.sidebar.checkbox("Pidana", value=True)
 use_pendidikan = st.sidebar.checkbox("Pendidikan", value=True)
 use_pengangguran = st.sidebar.checkbox("Pengangguran", value=True)
