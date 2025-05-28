@@ -187,6 +187,16 @@ use_pendapatan = st.sidebar.checkbox("Pendapatan", value=True)
 
 all_features = pidana_features + pendidikan_features + pengangguran_features + pendapatan_features
 
+selected_groups = []
+if use_pidana:
+    selected_groups.append("Pidana")
+if use_pendidikan:
+    selected_groups.append("Pendidikan")
+if use_pengangguran:
+    selected_groups.append("Pengangguran")
+if use_pendapatan:
+    selected_groups.append("Pendapatan")
+
 selected_features = []
 if use_pidana:
     selected_features += pidana_features
@@ -197,7 +207,7 @@ if use_pengangguran:
 if use_pendapatan:
     selected_features += pendapatan_features
 
-st.write(f"Fitur yang dipilih: {selected_features}")
+st.write(f"Fitur yang dipilih: {selected_groups}")
         
 
 
