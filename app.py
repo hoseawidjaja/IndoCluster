@@ -207,7 +207,8 @@ if use_pengangguran:
 if use_pendapatan:
     selected_features += pendapatan_features
 
-st.write(f"Fitur yang dipilih: {', '.join(selected_groups)}")
+list_str = "Fitur yang dipilih:\n" + "\n".join(f"- {group}" for group in selected_groups)
+st.markdown(list_str)
         
 
 
