@@ -375,9 +375,47 @@ if len(selected_features) >= 2:
     st.dataframe(resultTable[['Provinsi', 'Cluster']].sort_values('Cluster'))
 
     # --- Output Map ---
-    gdf_merged['Cluster'] = gdf_merged['Cluster'].astype(str)  # MODIFIKASI
+    # gdf_merged['Cluster'] = gdf_merged['Cluster'].astype(str)  # MODIFIKASI
 
-    # Mapping warna diskret (boleh diganti sesuai selera)
+    # # Mapping warna diskret (boleh diganti sesuai selera)
+    # color_discrete_map = {
+    #     '1': '#1f77b4',
+    #     '2': '#ff7f0e',
+    #     '3': '#2ca02c',
+    # }
+
+    # st.subheader("Peta Cluster")
+    # fig = px.choropleth_mapbox(
+    #     gdf_merged,
+    #     geojson=gdf_merged.geometry,
+    #     locations=gdf_merged.index,
+    #     color='Cluster',
+    #     hover_name='Provinsi',
+    #     hover_data={'Cluster': True},
+    #     mapbox_style="carto-positron",
+    #     center={"lat": -2.5, "lon": 118},
+    #     zoom=4.3,
+    #     opacity=0.8,
+    #     height=700,
+    #     color_discrete_map=color_discrete_map,  # MODIFIKASI
+    #     category_orders={'Cluster': ['1', '2', '3']}  # MODIFIKASI
+    # )
+    # fig.update_layout(
+    #     margin={"r":0,"t":0,"l":0,"b":0},
+    #     legend_title_text='Cluster'  # MODIFIKASI (opsional untuk label legend)
+    # )
+    # st.plotly_chart(fig, use_container_width=True)
+
+
+    import json
+
+    # Pastikan geometry kamu sudah dalam bentuk GeoJSON
+    gdf_merged['Cluster'] = gdf_merged['Cluster'].astype(str)
+
+    # Konversi GeoDataFrame ke format GeoJSON
+    geojson_data = json.loads(gdf_merged.to_json())
+
+    # Mapping warna diskret (bisa disesuaikan)
     color_discrete_map = {
         '1': '#1f77b4',
         '2': '#ff7f0e',
@@ -387,7 +425,7 @@ if len(selected_features) >= 2:
     st.subheader("Peta Cluster")
     fig = px.choropleth_mapbox(
         gdf_merged,
-        geojson=gdf_merged.geometry,
+        geojson=geojson_data,  # GANTI dari geometry ke dict
         locations=gdf_merged.index,
         color='Cluster',
         hover_name='Provinsi',
@@ -397,14 +435,20 @@ if len(selected_features) >= 2:
         zoom=4.3,
         opacity=0.8,
         height=700,
-        color_discrete_map=color_discrete_map,  # MODIFIKASI
-        category_orders={'Cluster': ['1', '2', '3']}  # MODIFIKASI
+        color_discrete_map=color_discrete_map,
+        category_orders={'Cluster': ['1', '2', '3']}  # urutan legend
     )
     fig.update_layout(
-        margin={"r":0,"t":0,"l":0,"b":0},
-        legend_title_text='Cluster'  # MODIFIKASI (opsional untuk label legend)
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
+        legend_title_text='Cluster',
+        legend=dict(
+            bgcolor='rgba(0,0,0,0)',
+            bordercolor='black',
+            borderwidth=1
+        )
     )
     st.plotly_chart(fig, use_container_width=True)
+
 
 else:
     st.warning("Pilih minimal 1 fitur untuk melakukan clustering.")
