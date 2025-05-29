@@ -379,10 +379,10 @@ if len(selected_features) >= 2:
 
     # Mapping warna diskret (boleh diganti sesuai selera)
     color_discrete_map = {
-        '1': 'lightblue',
-        '2': 'deepskyblue',
-        '3': 'navy'
-    }  # MODIFIKASI
+        '1': '#1f77b4',
+        '2': '#ff7f0e',
+        '3': '#2ca02c',
+    }
 
     st.subheader("Peta Cluster")
     fig = px.choropleth_mapbox(
