@@ -1,4 +1,5 @@
 import streamlit as st
+import json
 import geopandas as gpd
 import plotly.express as px
 import pandas as pd
@@ -371,61 +372,41 @@ if len(selected_features) >= 2:
     resultTable = resultTable.dropna()
 
     # --- Output Tabel ---
-    st.subheader("Tabel Hasil Clustering")
-    st.dataframe(resultTable[['Provinsi', 'Cluster']].sort_values('Cluster'))
+    # st.subheader("Tabel Hasil Clustering")
+    # st.dataframe(resultTable[['Provinsi', 'Cluster']].sort_values('Cluster'))
+
+    # Buat teks hasil clustering
+    clustering_text = ""
+
+    # Kelompokkan berdasarkan cluster
+    for cluster_num in sorted(resultTable['Cluster'].unique()):
+        clustering_text += f"Cluster {cluster_num}:\n"
+        # Ambil nama provinsi dengan kapitalisasi yang sesuai
+        provinsi_list = resultTable[resultTable['Cluster'] == cluster_num]['Provinsi'].str.title()
+        for provinsi in provinsi_list:
+            clustering_text += f"- {provinsi}\n"
+        clustering_text += "\n"
+
+    # Tampilkan di Streamlit
+    st.subheader("Hasil Clustering Provinsi")
+    st.text(clustering_text)
+
+    
 
     # --- Output Map ---
-    # gdf_merged['Cluster'] = gdf_merged['Cluster'].astype(str)  # MODIFIKASI
-
-    # # Mapping warna diskret (boleh diganti sesuai selera)
-    # color_discrete_map = {
-    #     '1': '#1f77b4',
-    #     '2': '#ff7f0e',
-    #     '3': '#2ca02c',
-    # }
-
-    # st.subheader("Peta Cluster")
-    # fig = px.choropleth_mapbox(
-    #     gdf_merged,
-    #     geojson=gdf_merged.geometry,
-    #     locations=gdf_merged.index,
-    #     color='Cluster',
-    #     hover_name='Provinsi',
-    #     hover_data={'Cluster': True},
-    #     mapbox_style="carto-positron",
-    #     center={"lat": -2.5, "lon": 118},
-    #     zoom=4.3,
-    #     opacity=0.8,
-    #     height=700,
-    #     color_discrete_map=color_discrete_map,  # MODIFIKASI
-    #     category_orders={'Cluster': ['1', '2', '3']}  # MODIFIKASI
-    # )
-    # fig.update_layout(
-    #     margin={"r":0,"t":0,"l":0,"b":0},
-    #     legend_title_text='Cluster'  # MODIFIKASI (opsional untuk label legend)
-    # )
-    # st.plotly_chart(fig, use_container_width=True)
-
-
-    import json
-
-    # Pastikan kolom Cluster adalah int
     gdf_merged['Cluster'] = gdf_merged['Cluster'].astype(int)
     gdf_merged['Cluster_str'] = gdf_merged['Cluster'].astype(str)
 
-    # Warna khusus untuk cluster
     color_discrete_map = {
-        '1': '#e74c3c',   # Merah
-        '2': '#f1c40f',   # Kuning
-        '3': '#2ecc71',   # Hijau
+        '1': '#e74c3c',
+        '2': '#f1c40f',
+        '3': '#2ecc71',
     }
 
-    # Convert to geojson
     geojson_data = json.loads(gdf_merged.to_json())
 
     st.subheader("Peta Hasil Clustering")
 
-    # Buat map
     fig = px.choropleth_mapbox(
         gdf_merged,
         geojson=geojson_data,
@@ -442,16 +423,15 @@ if len(selected_features) >= 2:
         category_orders={'Cluster_str': ['1', '2', '3']}
     )
 
-    # Update layout: pindah legend ke atas dan horizontal
     fig.update_layout(
         legend=dict(
-            orientation="h",  # horizontal
+            orientation="h",
             yanchor="bottom",
-            y=1.05,           # posisi di atas plot
+            y=1.05,
             xanchor="center",
             x=0.5,
             font=dict(
-                size=16       # ukuran font lebih besar
+                size=16
             )
         ),
         legend_title_text='Cluster',
