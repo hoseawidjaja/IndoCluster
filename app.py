@@ -409,30 +409,28 @@ if len(selected_features) >= 2:
 
     import json
 
-    # Pastikan Cluster bertipe integer
+    # Pastikan kolom Cluster adalah int
     gdf_merged['Cluster'] = gdf_merged['Cluster'].astype(int)
-
-    # Ubah ke string untuk pemetaan warna (tapi nilai asli tetap int)
     gdf_merged['Cluster_str'] = gdf_merged['Cluster'].astype(str)
 
-    # Warna untuk masing-masing cluster
+    # Warna khusus untuk cluster
     color_discrete_map = {
-        '1': '#e74c3c',   # Merah (Cluster 1)
-        '2': '#f1c40f',   # Kuning (Cluster 2)
-        '3': '#2ecc71',   # Hijau  (Cluster 3)
+        '1': '#e74c3c',   # Merah
+        '2': '#f1c40f',   # Kuning
+        '3': '#2ecc71',   # Hijau
     }
 
-    # Konversi GeoDataFrame ke GeoJSON
+    # Convert to geojson
     geojson_data = json.loads(gdf_merged.to_json())
 
-    st.subheader("Peta Cluster")
+    # Buat map
     fig = px.choropleth_mapbox(
         gdf_merged,
         geojson=geojson_data,
         locations=gdf_merged.index,
-        color='Cluster_str',  # pakai string untuk mapping warna
+        color='Cluster_str',
         hover_name='Provinsi',
-        hover_data={'Cluster': True},  # biar tampil 1,2,3 di hover
+        hover_data={'Cluster': True},
         mapbox_style="carto-positron",
         center={"lat": -2.5, "lon": 118},
         zoom=4.3,
@@ -442,10 +440,22 @@ if len(selected_features) >= 2:
         category_orders={'Cluster_str': ['1', '2', '3']}
     )
 
+    # Update layout: pindah legend ke atas dan horizontal
     fig.update_layout(
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
-        legend_title_text='Cluster'
+        legend=dict(
+            orientation="h",  # horizontal
+            yanchor="bottom",
+            y=1.05,           # posisi di atas plot
+            xanchor="center",
+            x=0.5,
+            font=dict(
+                size=16       # ukuran font lebih besar
+            )
+        ),
+        legend_title_text='Cluster',
+        margin={"r": 0, "t": 30, "l": 0, "b": 0}
     )
+
     st.plotly_chart(fig, use_container_width=True)
 
 
