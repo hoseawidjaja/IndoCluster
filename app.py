@@ -371,9 +371,6 @@ if len(selected_features) >= 2:
     resultTable = pd.DataFrame({'Provinsi':gdf_merged['Provinsi'], 'Cluster':gdf_merged['Cluster']})
     resultTable = resultTable.dropna()
 
-    # --- Output Tabel ---
-    # st.subheader("Tabel Hasil Clustering")
-    # st.dataframe(resultTable[['Provinsi', 'Cluster']].sort_values('Cluster'))
 
     # Buat teks hasil clustering
     clustering_text = ""
