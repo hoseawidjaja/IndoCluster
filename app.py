@@ -377,11 +377,11 @@ if len(selected_features) >= 2:
 
     # Kelompokkan berdasarkan cluster
     for cluster_num in sorted(resultTable['Cluster'].unique()):
-        clustering_text += f"Cluster {cluster_num}:\n"
+        clustering_text += f"Cluster {int(cluster_num)}:\n"
         # Ambil nama provinsi dengan kapitalisasi yang sesuai
         provinsi_list = resultTable[resultTable['Cluster'] == cluster_num]['Provinsi'].str.title()
         for provinsi in provinsi_list:
-            clustering_text += f"- {provinsi}\n"
+            clustering_text += f"   - {provinsi}\n"
         clustering_text += "\n"
 
     # Tampilkan di Streamlit
