@@ -8,4 +8,3 @@ scikit-learn
 matplotlib
 yellowbrick
 scipy
-json
