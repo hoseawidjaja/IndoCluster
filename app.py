@@ -381,7 +381,7 @@ if len(selected_features) >= 2:
         # Ambil nama provinsi dengan kapitalisasi yang sesuai
         provinsi_list = resultTable[resultTable['Cluster'] == cluster_num]['Provinsi'].str.title()
         for provinsi in provinsi_list:
-            clustering_text += f"   - {provinsi}\n"
+            clustering_text += f"  - {provinsi}\n"
         clustering_text += "\n"
 
     # Tampilkan di Streamlit
