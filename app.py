@@ -375,6 +375,15 @@ if len(selected_features) >= 2:
     st.dataframe(resultTable[['Provinsi', 'Cluster']].sort_values('Cluster'))
 
     # --- Output Map ---
+    gdf_merged['Cluster'] = gdf_merged['Cluster'].astype(str)  # MODIFIKASI
+
+    # Mapping warna diskret (boleh diganti sesuai selera)
+    color_discrete_map = {
+        '1': 'lightblue',
+        '2': 'deepskyblue',
+        '3': 'navy'
+    }  # MODIFIKASI
+
     st.subheader("Peta Cluster")
     fig = px.choropleth_mapbox(
         gdf_merged,
@@ -388,8 +397,13 @@ if len(selected_features) >= 2:
         zoom=4.3,
         opacity=0.8,
         height=700,
+        color_discrete_map=color_discrete_map,  # MODIFIKASI
+        category_orders={'Cluster': ['1', '2', '3']}  # MODIFIKASI
     )
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    fig.update_layout(
+        margin={"r":0,"t":0,"l":0,"b":0},
+        legend_title_text='Cluster'  # MODIFIKASI (opsional untuk label legend)
+    )
     st.plotly_chart(fig, use_container_width=True)
 
 else:
