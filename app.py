@@ -371,7 +371,7 @@ if len(selected_features) >= 2:
     resultTable = resultTable.dropna()
 
     # --- Output Tabel ---
-    st.subheader("Tabel Provinsi dan Cluster")
+    st.subheader("Tabel Hasil Clustering")
     st.dataframe(resultTable[['Provinsi', 'Cluster']].sort_values('Cluster'))
 
     # --- Output Map ---
@@ -422,6 +422,8 @@ if len(selected_features) >= 2:
 
     # Convert to geojson
     geojson_data = json.loads(gdf_merged.to_json())
+
+    st.subheader("Peta Hasil Clustering")
 
     # Buat map
     fig = px.choropleth_mapbox(
