@@ -15,7 +15,7 @@ from sklearn.decomposition import PCA
 from sklearn.neighbors import NearestNeighbors
 
 
-# Load Data
+# Load Data 
 
 gdf = gpd.read_file("indonesia.geojson")
 
