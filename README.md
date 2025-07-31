@@ -1,4 +1,4 @@
-Clustering Provinsi di Indonesia Dashboard
+IndoCluster: Analisis Klaster Wilayah Indonesia Berdasarkan Indikator Sosial dan Kriminalitas
 =============================================
 
 Deskripsi Singkat:
