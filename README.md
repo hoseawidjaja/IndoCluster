@@ -14,7 +14,7 @@ Dengan melakukan clustering, pemerintah atau peneliti dapat memahami pola wilaya
 Link Dashboard:
 ---------------
 🔗 Dashboard online dapat diakses di:
-https://mlproject242cc.streamlit.app/
+https://indocluster.streamlit.app/
 
 Fitur Aplikasi:
 ---------------
